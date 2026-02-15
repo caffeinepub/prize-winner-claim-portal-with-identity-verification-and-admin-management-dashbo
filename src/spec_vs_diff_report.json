@@ -1,0 +1,163 @@
+{
+  "kind": "spec_vs_diff_report",
+  "version": "1.0",
+  "generatedAt": "2026-02-15T13:48:35.286Z",
+  "summary": "Diff adds a new Motoko backend actor with data types for winning entries, claims, identity image references, and testimonials; and adds a frontend app with Internet Identity-protected routes for winner and admin areas plus hooks and components for claims/testimonials and image capture/upload UI. Several BuildRequest requirements are not clearly implemented or are only partially evidenced in the truncated diff, and some added functionality was not requested (e.g., user profiles, caffeine.ai footer/admin token secret).",
+  "missing_requirements": [
+    {
+      "id": "REQ-1",
+      "requirement": "At least one admin principal can be configured (e.g., via backend constant/list) to unlock admin-only features.",
+      "reason": "Frontend checks admin via useIsCallerAdmin(), but the diff does not show any explicit configured admin principals list/constant in backend/main.mo (file is truncated).",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/hooks/useAuthz.ts"
+      ]
+    },
+    {
+      "id": "REQ-2",
+      "requirement": "Winner can enter a ticket identifier/code and a prize number (or activation code) and backend returns deterministic status (valid+activated, invalid, already activated by someone else), binding activation to the principal.",
+      "reason": "The backend excerpt shows claimWinningEntry(id) and data fields for claimedBy/isClaimed, but no evidence of an API that verifies using both ticket identifier and prize number and returns the required three-way deterministic status; the relevant code is truncated before behavior is shown.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/hooks/useWinningEntry.ts"
+      ]
+    },
+    {
+      "id": "REQ-3",
+      "requirement": "Winner can save/submit the claim; backend stores it and returns a claim ID; Winner can view current claim status with statuses like Draft/Submitted/Under Review/Approved/Rejected/Need More Info.",
+      "reason": "Backend ClaimStatus type in the diff only shows #pending/#awaitingInfo/#approved/#rejected and does not evidence Draft/Submitted/Under Review/Need More Info statuses. Also, frontend hook calls submitWinnerClaim(claim) but the diff does not show the backend method signature/return value (claim ID) due to truncation.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/hooks/useClaims.ts"
+      ]
+    },
+    {
+      "id": "REQ-4",
+      "requirement": "Backend enforces size/type limits for selfie and ID uploads; stores uploads associated with a claim; winner can re-upload/replace while not finalized.",
+      "reason": "Frontend enforces basic image validation and preview (ImagePicker), but the backend excerpt only shows selfieImageId/idCardImageId fields and includes blob storage mixin; no explicit backend size/type enforcement, claim-linking, or re-upload rules are evidenced in the visible portion (and claim/identity APIs are not shown due to truncation).",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/components/winner/ImagePicker.tsx"
+      ]
+    },
+    {
+      "id": "REQ-5",
+      "requirement": "Confirmation/legitimacy page includes an \"Is this real?\" section with English guidance and disclaimers and shows claim ID and current status after submission.",
+      "reason": "Route to ConfirmationLegitimacyPage exists, but the diff does not include the page implementation content, so the claim ID/status display and required disclaimers are not evidenced.",
+      "evidence": [
+        "frontend/src/App.tsx (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-6",
+      "requirement": "Admin can list claims (with key fields), filter by status, view claim details including uploaded selfie/ID images, and update status with admin message; all enforced by backend authorization checks.",
+      "reason": "Frontend includes admin routes and mutations (updateClaimStatus/adminResponse) and useGetAllClaims(statusFilter), but the diff does not include the admin pages (ClaimsListPage/ClaimDetailPage) implementations nor backend admin-only authorization checks for these calls (backend is truncated). Viewing uploaded images is also not evidenced.",
+      "evidence": [
+        "frontend/src/App.tsx (truncated)",
+        "frontend/src/hooks/useAdminClaims.ts",
+        "frontend/src/hooks/useClaims.ts",
+        "backend/main.mo (truncated)"
+      ]
+    },
+    {
+      "id": "REQ-7",
+      "requirement": "Testimonials: winner-facing list with fields (name, country, message), seeded with “Ronnie Lee (USA)” and “Hans Cusveller (Canada)” as editable content; admin can add/edit/delete; UI includes disclaimer that testimonials may not be independently verified.",
+      "reason": "Backend Testimonial type shown uses {name,title,quote,income,image} (does not match name/country/message). No evidence of seed testimonials or disclaimer text is present because the relevant pages and backend initialization are not shown in the diff summary.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/App.tsx (truncated)",
+        "frontend/src/hooks/useTestimonials.ts"
+      ]
+    },
+    {
+      "id": "REQ-8",
+      "requirement": "Coherent visual theme across app with consistent palette/typography/spacing; consistent component variants/states; basic accessibility contrast.",
+      "reason": "Components use existing UI primitives (button/card/etc.) and Tailwind classes, but the diff does not show any explicit theming system or design tokens setup beyond importing CSS; theme/accessibility compliance is not evidenced in the diff summary.",
+      "evidence": [
+        "frontend/src/components/AppLayout.tsx",
+        "frontend/src/components/NavBar.tsx (truncated)",
+        "frontend/src/index.css"
+      ]
+    },
+    {
+      "id": "REQ-9",
+      "requirement": "Backend stable storage with stable variables so state survives upgrades for winning entries, claims, identity uploads, admin responses, and testimonials; typed Motoko APIs for winner/admin actions.",
+      "reason": "The backend shows in-memory Map.empty(...) for several collections, but no evidence of stable variables (e.g., stable var) or upgrade-safe persistence is shown in the visible excerpt; the API surface is also incomplete due to truncation.",
+      "evidence": [
+        "backend/main.mo (truncated)"
+      ]
+    }
+  ],
+  "hallucinated_features": [
+    {
+      "description": "User profile collection and profile setup modal (name/email/phone) with backend APIs get/save profiles.",
+      "reason": "BuildRequest does not ask for user profiles or a mandatory profile setup flow; requirements focus on ticket verification, claim submission, identity images, admin claims management, and testimonials.",
+      "evidence": [
+        "backend/main.mo (truncated)",
+        "frontend/src/components/ProfileSetupModal.tsx",
+        "frontend/src/hooks/useAuthz.ts"
+      ]
+    },
+    {
+      "description": "Caffeine.ai referral footer/branding link in the app layout.",
+      "reason": "Not requested in BuildRequest requirements; adds external promotional link.",
+      "evidence": [
+        "frontend/src/components/AppLayout.tsx"
+      ]
+    },
+    {
+      "description": "Secret URL parameter (caffeineAdminToken) used to initialize access control on the actor.",
+      "reason": "BuildRequest specifies admin access via configured admin principals; using a secret URL parameter token is not requested and may bypass the intended admin-principal configuration model.",
+      "evidence": [
+        "frontend/src/hooks/useActor.ts"
+      ]
+    },
+    {
+      "description": "Backend dependency on blob-storage and authorization mixins (Storage/MixinStorage/MixinAuthorization) with access-control initialization.",
+      "reason": "Not explicitly requested; BuildRequest only requires a single Motoko actor and stable storage/typed APIs, not specific third-party mixin frameworks.",
+      "evidence": [
+        "backend/main.mo (truncated)"
+      ]
+    }
+  ],
+  "confidence": 0.63,
+  "changed_files": [
+    "all_files_summary.json",
+    "backend/main.mo",
+    "frontend-file-summaries.txt",
+    "frontend/index.css",
+    "frontend/index.html",
+    "frontend/src/App.tsx",
+    "frontend/src/components/AccessDeniedScreen.tsx",
+    "frontend/src/components/AppLayout.tsx",
+    "frontend/src/components/LoginButton.tsx",
+    "frontend/src/components/NavBar.tsx",
+    "frontend/src/components/ProfileSetupModal.tsx",
+    "frontend/src/components/winner/CameraCapture.tsx",
+    "frontend/src/components/winner/ImagePicker.tsx",
+    "frontend/src/components/winner/PayoutMethodFields.tsx",
+    "frontend/src/hooks/useActor.ts",
+    "frontend/src/hooks/useAdminClaims.ts",
+    "frontend/src/hooks/useAuthz.ts",
+    "frontend/src/hooks/useClaims.ts",
+    "frontend/src/hooks/useInternetIdentity.ts",
+    "frontend/src/hooks/useTestimonials.ts",
+    "frontend/src/hooks/useWinningEntry.ts",
+    "frontend/src/index.css",
+    "frontend/src/main.tsx",
+    "frontend/src/pages/admin/AdminDashboardPage.tsx",
+    "frontend/src/pages/admin/ClaimDetailPage.tsx",
+    "frontend/src/pages/admin/ClaimsListPage.tsx",
+    "frontend/src/pages/admin/TestimonialsAdminPage.tsx",
+    "frontend/src/pages/winner/ClaimFormPage.tsx",
+    "frontend/src/pages/winner/ClaimStatusPage.tsx",
+    "frontend/src/pages/winner/ConfirmationLegitimacyPage.tsx",
+    "frontend/src/pages/winner/IdentityVerificationPage.tsx",
+    "frontend/src/pages/winner/TestimonialsPage.tsx",
+    "frontend/src/pages/winner/VerifyActivatePage.tsx",
+    "frontend/src/pages/winner/WinnerPortalHomePage.tsx",
+    "frontend/src/utils/urlParams.ts",
+    "frontend/tailwind.config.js",
+    "project_state.json"
+  ]
+}

@@ -1,0 +1,145 @@
+{
+  "schemaVersion": "1.0.0",
+  "projectStateVersion": 3,
+  "summary": "Prize-claim portal app for contest/lottery winners to verify winning tickets, activate prize numbers, submit identity verification (selfie + ID), choose payout method (ATM card, certified check, bank transfer), provide delivery details, view motivational past-winner testimonials, and an admin dashboard to manage and respond to winner claims.",
+  "architectural_notes": [],
+  "known_issues": [
+    "Request includes adding images of a political figure as promotional proof; may be restricted/disallowed content and could be misleading."
+  ],
+  "isFixRequest": false,
+  "imageRequirements": "## Required Images\n- Generic lottery promotion banner with abstract celebratory elements (lottery-banner.dim_1600x600.png)\n- Badge-style seal illustration reading “Prize Claim Portal” (claim-seal.dim_512x512.png)",
+  "existing_features": [
+    {
+      "id": "feature-implement-internet-identity-sign-in-and-role-gated-navigation-with-two-main-areas-1-winner-portal-for-standard-authenticated-users-and-2-admin-dashboard-accessible-only-to-configured-admin-principals",
+      "title": "Implement Internet Identity sign-in and role-gated navigation with two main areas: (1) Winner Portal for standard authenticated users and (2) Admin Dashboard accessible only to configured admin principals.",
+      "reqIds": [
+        "REQ-1"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-the-winner-portal-flow-to-verify-a-prize-winner-ticket-and-activate-a-winning-prize-number-including-clear-status-feedback-valid-invalid-already-claimed-and-preventing-the-same-winning-entry-from-being-activated-by-multiple-accounts",
+      "title": "Create the Winner Portal flow to verify a prize-winner ticket and activate a winning prize number, including clear status feedback (valid/invalid/already claimed) and preventing the same winning entry from being activated by multiple accounts.",
+      "reqIds": [
+        "REQ-2"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-winner-claim-submission-form-that-collects-required-prize-delivery-details-and-claim-information-and-supports-selecting-a-payout-method-atm-card-certified-check-or-bank-transfer-with-conditional-fields-per-method",
+      "title": "Add a winner claim submission form that collects required prize delivery details and claim information, and supports selecting a payout method: ATM card, certified check, or bank transfer, with conditional fields per method.",
+      "reqIds": [
+        "REQ-3"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-implement-identity-verification-capture-in-the-winner-portal-allow-the-winner-to-take-upload-a-selfie-and-an-id-card-photo-attach-them-to-a-claim-and-submit-for-review-with-basic-client-side-validation-and-backend-size-type-limits",
+      "title": "Implement identity verification capture in the Winner Portal: allow the winner to take/upload a selfie and an ID card photo, attach them to a claim, and submit for review with basic client-side validation and backend size/type limits.",
+      "reqIds": [
+        "REQ-4"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-winner-facing-confirmation-legitimacy-page-that-lets-users-submit-their-prize-claim-and-see-a-clear-confirmation-that-the-submission-was-received-plus-a-simple-is-this-real-information-section-with-plain-english-guidance-and-disclaimers",
+      "title": "Add a winner-facing confirmation/legitimacy page that lets users submit their prize claim and see a clear confirmation that the submission was received, plus a simple “Is this real?” information section with plain-English guidance and disclaimers.",
+      "reqIds": [
+        "REQ-5"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-create-an-admin-dashboard-to-manage-winners-activities-list-claims-filter-by-status-view-claim-details-including-delivery-info-payout-method-and-uploaded-selfie-id-images-and-allow-the-admin-to-respond-and-update-claim-status-e-g-request-more-info-approve-reject",
+      "title": "Create an Admin Dashboard to manage winners’ activities: list claims, filter by status, view claim details (including delivery info, payout method, and uploaded selfie/ID images), and allow the admin to respond and update claim status (e.g., request more info, approve, reject).",
+      "reqIds": [
+        "REQ-6"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-testimonials-section-with-motivational-past-winner-talks-content-items-including-the-provided-names-displayed-in-the-app-and-build-simple-admin-tooling-to-add-edit-remove-testimonials-so-the-content-can-be-managed-over-time",
+      "title": "Add a Testimonials section with motivational “past winner talks” content items (including the provided names) displayed in the app, and build simple admin tooling to add/edit/remove testimonials so the content can be managed over time.",
+      "reqIds": [
+        "REQ-7"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-apply-a-coherent-visual-theme-across-the-app-colors-typography-layout-suitable-for-a-prize-claim-portal-ensuring-accessibility-and-consistent-styling-across-winner-portal-and-admin-dashboard",
+      "title": "Apply a coherent visual theme across the app (colors, typography, layout) suitable for a prize-claim portal, ensuring accessibility and consistent styling across Winner Portal and Admin Dashboard.",
+      "reqIds": [
+        "REQ-8"
+      ],
+      "version": 1
+    }
+  ],
+  "new_feature_requests": [
+    {
+      "id": "AR-1",
+      "summary": "Winner-facing portal to verify prize winner ticket / winning status",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-2",
+      "summary": "Activate winning prize number workflow",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-3",
+      "summary": "Payout method selection: ATM card, certified check, or bank transfer",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-4",
+      "summary": "Identity verification capture: in-app selfie + ID card photo submission",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-5",
+      "summary": "Winner form for prize delivery details and required claim information",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-6",
+      "summary": "Submit prize-claim for review and allow winners to confirm/testify legitimacy (\"is it real\")",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-7",
+      "summary": "Admin/management dashboard to monitor winner activity, review submissions, and respond to claims",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-8",
+      "summary": "Testimonials/motivational lottery talks section featuring past winner stories (e.g., Ronnie Lee, Hans Cusveller)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-9",
+      "summary": "Include images of a political figure (e.g., Trump) as proof of lottery promotion announcement",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-18",
+      "summary": "Implement backend data models and stable storage for: winning entries (tickets/prize numbers), claims (delivery + payout method details), identity uploads (selfie/ID), admin responses, and testimonials; expose typed Motoko APIs for the frontend to create/read/update these entities.",
+      "reqIds": [
+        "REQ-9"
+      ],
+      "status": "pending"
+    }
+  ],
+  "gameProjectType": "none",
+  "projectName": "Prize-winner claim portal with identity verification and admin management dashboard",
+  "clarification_mode": "instant",
+  "clarification_rounds": 0
+}
