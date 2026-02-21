@@ -1,7 +1,7 @@
 import { useNavigate } from '@tanstack/react-router';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card';
 import { Button } from '../../components/ui/button';
-import { FileText, MessageSquare, Shield } from 'lucide-react';
+import { FileText, MessageSquare, Shield, Globe } from 'lucide-react';
 
 export default function AdminDashboardPage() {
   const navigate = useNavigate();
@@ -36,6 +36,17 @@ export default function AdminDashboardPage() {
           </CardHeader>
           <CardContent>
             <Button className="w-full">Manage Testimonials</Button>
+          </CardContent>
+        </Card>
+
+        <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate({ to: '/admin/custom-domain' })}>
+          <CardHeader>
+            <Globe className="h-10 w-10 text-primary mb-2" />
+            <CardTitle>Custom Domain Setup</CardTitle>
+            <CardDescription>Configure your vanity URL</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Button className="w-full">Setup Domain</Button>
           </CardContent>
         </Card>
       </div>

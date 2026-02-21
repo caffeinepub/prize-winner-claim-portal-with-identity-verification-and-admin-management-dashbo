@@ -2,136 +2,13 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-implement-internet-identity-sign-in-and-role-gated-navigation-with-two-main-areas-1-winner-portal-for-standard-authenticated-users-and-2-admin-dashboard-accessible-only-to-configured-admin-principals",
-      "featureTitle": "Implement Internet Identity sign-in and role-gated navigation with two main areas: (1) Winner Portal for standard authenticated users and (2) Admin Dashboard accessible only to configured admin principals.",
+      "featureId": "feature-add-a-configuration-interface-or-documentation-to-enable-custom-domain-mapping-for-the-deployed-canister-url-https-iwwkn-jyaaa-aaaap-qnc6q-cai-icp0-io-allowing-the-user-to-configure-a-vanity-url-or-custom-domain-for-the-meta-lottery-portal",
+      "featureTitle": "Add a configuration interface or documentation to enable custom domain mapping for the deployed canister URL (https://iwwkn-jyaaa-aaaap-qnc6q-cai.icp0.io), allowing the user to configure a vanity URL or custom domain for the Meta Lottery Portal.",
       "files": [
         "frontend/src/App.tsx",
-        "frontend/src/components/AccessDeniedScreen.tsx",
-        "frontend/src/components/LoginButton.tsx",
         "frontend/src/components/NavBar.tsx",
-        "frontend/src/components/ProfileSetupModal.tsx",
-        "frontend/src/hooks/useAuthz.ts",
-        "frontend/src/index.css"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "camera@1.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-1"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-the-winner-portal-flow-to-verify-a-prize-winner-ticket-and-activate-a-winning-prize-number-including-clear-status-feedback-valid-invalid-already-claimed-and-preventing-the-same-winning-entry-from-being-activated-by-multiple-accounts",
-      "featureTitle": "Create the Winner Portal flow to verify a prize-winner ticket and activate a winning prize number, including clear status feedback (valid/invalid/already claimed) and preventing the same winning entry from being activated by multiple accounts.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/useWinningEntry.ts",
-        "frontend/src/pages/winner/VerifyActivatePage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "camera@1.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-2"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-winner-claim-submission-form-that-collects-required-prize-delivery-details-and-claim-information-and-supports-selecting-a-payout-method-atm-card-certified-check-or-bank-transfer-with-conditional-fields-per-method",
-      "featureTitle": "Add a winner claim submission form that collects required prize delivery details and claim information, and supports selecting a payout method: ATM card, certified check, or bank transfer, with conditional fields per method.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/winner/PayoutMethodFields.tsx",
-        "frontend/src/hooks/useClaims.ts",
-        "frontend/src/pages/winner/ClaimFormPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "camera@1.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-3"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-implement-identity-verification-capture-in-the-winner-portal-allow-the-winner-to-take-upload-a-selfie-and-an-id-card-photo-attach-them-to-a-claim-and-submit-for-review-with-basic-client-side-validation-and-backend-size-type-limits",
-      "featureTitle": "Implement identity verification capture in the Winner Portal: allow the winner to take/upload a selfie and an ID card photo, attach them to a claim, and submit for review with basic client-side validation and backend size/type limits.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/components/winner/CameraCapture.tsx",
-        "frontend/src/components/winner/ImagePicker.tsx",
-        "frontend/src/pages/admin/ClaimDetailPage.tsx",
-        "frontend/src/pages/winner/IdentityVerificationPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "camera@1.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-4"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-winner-facing-confirmation-legitimacy-page-that-lets-users-submit-their-prize-claim-and-see-a-clear-confirmation-that-the-submission-was-received-plus-a-simple-is-this-real-information-section-with-plain-english-guidance-and-disclaimers",
-      "featureTitle": "Add a winner-facing confirmation/legitimacy page that lets users submit their prize claim and see a clear confirmation that the submission was received, plus a simple “Is this real?” information section with plain-English guidance and disclaimers.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/pages/winner/ConfirmationLegitimacyPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "camera@1.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-5"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-create-an-admin-dashboard-to-manage-winners-activities-list-claims-filter-by-status-view-claim-details-including-delivery-info-payout-method-and-uploaded-selfie-id-images-and-allow-the-admin-to-respond-and-update-claim-status-e-g-request-more-info-approve-reject",
-      "featureTitle": "Create an Admin Dashboard to manage winners’ activities: list claims, filter by status, view claim details (including delivery info, payout method, and uploaded selfie/ID images), and allow the admin to respond and update claim status (e.g., request more info, approve, reject).",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/useAdminClaims.ts",
         "frontend/src/pages/admin/AdminDashboardPage.tsx",
-        "frontend/src/pages/admin/ClaimDetailPage.tsx",
-        "frontend/src/pages/admin/ClaimsListPage.tsx",
-        "frontend/src/pages/winner/ClaimStatusPage.tsx"
+        "frontend/src/pages/admin/CustomDomainPage.tsx"
       ],
       "components": [
         "authorization@4.0.0",
@@ -144,55 +21,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-6"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-a-testimonials-section-with-motivational-past-winner-talks-content-items-including-the-provided-names-displayed-in-the-app-and-build-simple-admin-tooling-to-add-edit-remove-testimonials-so-the-content-can-be-managed-over-time",
-      "featureTitle": "Add a Testimonials section with motivational “past winner talks” content items (including the provided names) displayed in the app, and build simple admin tooling to add/edit/remove testimonials so the content can be managed over time.",
-      "files": [
-        "frontend/src/App.tsx",
-        "frontend/src/hooks/useTestimonials.ts",
-        "frontend/src/pages/admin/TestimonialsAdminPage.tsx",
-        "frontend/src/pages/winner/TestimonialsPage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "camera@1.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-7"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-apply-a-coherent-visual-theme-across-the-app-colors-typography-layout-suitable-for-a-prize-claim-portal-ensuring-accessibility-and-consistent-styling-across-winner-portal-and-admin-dashboard",
-      "featureTitle": "Apply a coherent visual theme across the app (colors, typography, layout) suitable for a prize-claim portal, ensuring accessibility and consistent styling across Winner Portal and Admin Dashboard.",
-      "files": [
-        "frontend/index.css",
-        "frontend/src/App.tsx",
-        "frontend/src/components/AppLayout.tsx",
-        "frontend/src/pages/winner/WinnerPortalHomePage.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "blob-storage@4.0.0",
-        "camera@1.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-8"
+        "REQ-17"
       ],
       "confidence": "high"
     }

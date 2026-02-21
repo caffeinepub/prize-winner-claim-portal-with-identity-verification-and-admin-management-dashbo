@@ -1,188 +1,41 @@
 {
   "kind": "build_request",
-  "title": "Prize-winner claim portal with identity verification and admin management dashboard",
+  "title": "Add custom domain/URL configuration for the live Meta Lottery Portal",
+  "projectName": "Meta Lottery Portal",
   "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "text": "Implement Internet Identity sign-in and role-gated navigation with two main areas: (1) Winner Portal for standard authenticated users and (2) Admin Dashboard accessible only to configured admin principals.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "a place for me to manage all the winners activities on the app"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Users can sign in using Internet Identity.",
-        "Non-admin users cannot access any Admin Dashboard routes/pages (UI hides links; backend also rejects admin-only calls).",
-        "At least one admin principal can be configured (e.g., via backend constant/list) to unlock admin-only features."
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "text": "Create the Winner Portal flow to verify a prize-winner ticket and activate a winning prize number, including clear status feedback (valid/invalid/already claimed) and preventing the same winning entry from being activated by multiple accounts.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "Verify prize winner ticket",
-          "To activate winning prize number"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Winner can enter a ticket identifier/code and a prize number (or activation code) and submit for verification.",
-        "Backend returns a deterministic status: valid + activated for this user, invalid, or already activated by someone else.",
-        "Once activated, the activation is bound to the signed-in principal and is not re-claimable by another principal."
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "text": "Add a winner claim submission form that collects required prize delivery details and claim information, and supports selecting a payout method: ATM card, certified check, or bank transfer, with conditional fields per method.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "To chose method to receive prize with which are atm card ,certified check or bank transfer",
-          "fill in details for prize delivery"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Winner can select one of: ATM card, certified check, bank transfer.",
-        "Form dynamically shows required fields for the chosen method (e.g., bank transfer requires bank details; check requires mailing name/address).",
-        "Winner can save/submit the claim; backend stores it and returns a claim ID.",
-        "Winner can view the current claim status after submission (e.g., Draft/Submitted/Under Review/Approved/Rejected/Need More Info)."
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "text": "Implement identity verification capture in the Winner Portal: allow the winner to take/upload a selfie and an ID card photo, attach them to a claim, and submit for review with basic client-side validation and backend size/type limits.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "a place where winner can click on to take\nSelfie and id card for self verification"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Winner can capture/upload two images: selfie and ID card photo.",
-        "Client enforces basic validation (file type image/* and reasonable max size) and shows previews before upload.",
-        "Backend stores the uploaded images associated with the claim (or an upload record linked to the claim).",
-        "Winner can re-upload/replace images while the claim is not in a finalized state (e.g., before approval)."
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "text": "Add a winner-facing confirmation/legitimacy page that lets users submit their prize claim and see a clear confirmation that the submission was received, plus a simple “Is this real?” information section with plain-English guidance and disclaimers.",
+      "id": "REQ-17",
+      "text": "Add a configuration interface or documentation to enable custom domain mapping for the deployed canister URL (https://iwwkn-jyaaa-aaaap-qnc6q-cai.icp0.io), allowing the user to configure a vanity URL or custom domain for the Meta Lottery Portal.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-1"
+          "msg-last"
         ],
         "quotes": [
-          "where they can click on to submit the prize claim from the prize winners coming to the app to testify if it’s real"
+          "Can you help me re customize my url in my own way pls"
         ]
       },
       "acceptanceCriteria": [
-        "After submitting a claim, the winner sees a confirmation screen with claim ID and current status.",
-        "An “Is this real?” section is accessible from the Winner Portal and contains English-only explanatory text and safety disclaimers.",
-        "The page does not imply endorsement by any real public figure or government entity."
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "text": "Create an Admin Dashboard to manage winners’ activities: list claims, filter by status, view claim details (including delivery info, payout method, and uploaded selfie/ID images), and allow the admin to respond and update claim status (e.g., request more info, approve, reject).",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "a place for me to manage all the winners activities on the app and where I can respond to the details filled for the prize claim"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Admin can view a table/list of all claims with key fields (claim ID, user, status, created date).",
-        "Admin can open a claim detail view and see submitted data and uploaded images.",
-        "Admin can set claim status and add an admin message/response visible to the winner.",
-        "All admin actions are enforced by backend authorization checks."
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "text": "Add a Testimonials section with motivational “past winner talks” content items (including the provided names) displayed in the app, and build simple admin tooling to add/edit/remove testimonials so the content can be managed over time.",
-      "target": "both",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ],
-        "quotes": [
-          "some professional motivational lottery talks from past winners like Ronnie  lee from USA  and Hans Cusveller from Canada  who won $750,000,00 each with a brand new truck"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Winner Portal includes a Testimonials page/section listing testimonial items (name, country, message).",
-        "Initial seed testimonials include entries for “Ronnie Lee (USA)” and “Hans Cusveller (Canada)” as editable content.",
-        "Admin can add/edit/delete testimonial entries from the Admin Dashboard.",
-        "UI includes a disclaimer indicating testimonials are user-submitted/marketing content and may not be independently verified."
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "text": "Apply a coherent visual theme across the app (colors, typography, layout) suitable for a prize-claim portal, ensuring accessibility and consistent styling across Winner Portal and Admin Dashboard.",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ]
-      },
-      "acceptanceCriteria": [
-        "App uses a consistent palette, typography scale, and spacing system across pages.",
-        "Forms, buttons, tables, and alerts use consistent variants and states (hover/disabled/error).",
-        "Color contrast meets basic accessibility expectations for primary text on backgrounds."
-      ]
-    },
-    {
-      "id": "REQ-9",
-      "text": "Implement backend data models and stable storage for: winning entries (tickets/prize numbers), claims (delivery + payout method details), identity uploads (selfie/ID), admin responses, and testimonials; expose typed Motoko APIs for the frontend to create/read/update these entities.",
-      "target": "backend",
-      "source": {
-        "messageIds": [
-          "msg-1"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Backend provides methods for winner actions: verify/activate, create/update/submit claim, upload/re-upload identity images, get own claim(s) and status, read testimonials.",
-        "Backend provides admin-only methods: list all claims, get claim details, update claim status + response, manage testimonials, and (if needed) manage winning entries.",
-        "All persisted state survives canister upgrade using stable variables (no migration file unless required by later schema changes)."
+        "User can configure a custom domain or vanity URL for the canister",
+        "Instructions or UI elements guide the user through domain configuration steps",
+        "The custom URL mapping works without breaking Internet Identity authentication",
+        "Documentation includes any necessary DNS or canister configuration steps"
       ]
     }
   ],
   "constraints": [
-    "Backend must remain a single Motoko actor (all logic in backend/main.mo).",
-    "Do not modify files under frontend immutable paths: frontend/src/hooks/useInternetIdentity.ts, frontend/src/hooks/useInternetIdentity.tsx, frontend/src/hooks/useActor.ts, frontend/src/main.tsx, frontend/src/components/ui (compose these components instead).",
-    "Use English for all user-facing text.",
-    "Do not include or display political-figure images or any content that could mislead users into thinking a real public figure endorsed or announced the promotion."
+    "Do not change the backend main.mo actor structure",
+    "Preserve Internet Identity authentication flow",
+    "Maintain existing frontend immutable paths (useInternetIdentity.ts, useActor.ts, main.tsx, components/ui)"
   ],
   "nonGoals": [
-    "Integrating third-party authentication providers other than Internet Identity.",
-    "Real-time chat, push notifications, SMS, or email delivery integrations.",
-    "Using external databases or non-Motoko backend services.",
-    "Adding or embedding the user-requested Trump/political-figure images as “proof” of announcing the lottery promotion."
+    "Implementing automatic DNS provisioning",
+    "Creating a full domain registrar integration",
+    "Modifying the Internet Computer canister ID itself"
   ],
   "imageRequirements": {
-    "required": [
-      "Generic lottery promotion banner with abstract celebratory elements (lottery-banner.dim_1600x600.png)",
-      "Badge-style seal illustration reading “Prize Claim Portal” (claim-seal.dim_512x512.png)"
-    ],
+    "required": [],
     "edits": []
   }
 }

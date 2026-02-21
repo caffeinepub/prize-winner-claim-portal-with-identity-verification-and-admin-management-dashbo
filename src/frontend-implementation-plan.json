@@ -1,287 +1,37 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Prize-winner claim portal (Winner Portal + Admin Dashboard)",
+  "title": "Add custom domain/URL configuration for the live Meta Lottery Portal",
   "requirements": [
     {
-      "id": "REQ-1",
-      "summary": "Add Internet Identity sign-in, profile setup, and role-gated navigation for Winner Portal vs Admin Dashboard.",
+      "id": "REQ-17",
+      "summary": "Add a configuration interface or documentation to enable custom domain mapping for the deployed canister URL, allowing the user to configure a vanity URL or custom domain for the Meta Lottery Portal",
       "acceptanceCriteria": [
-        "Users can sign in using Internet Identity.",
-        "Non-admin users cannot access any Admin Dashboard routes/pages (UI hides links; backend also rejects admin-only calls).",
-        "At least one admin principal can be configured (e.g., via backend constant/list) to unlock admin-only features."
+        "User can configure a custom domain or vanity URL for the canister",
+        "Instructions or UI elements guide the user through domain configuration steps",
+        "The custom URL mapping works without breaking Internet Identity authentication",
+        "Documentation includes any necessary DNS or canister configuration steps"
       ],
       "file_operations": [
         {
+          "path": "frontend/src/pages/admin/CustomDomainPage.tsx",
+          "operation": "create",
+          "description": "Create a new admin page that provides step-by-step documentation and guidance for configuring a custom domain or vanity URL. Display the current canister ID (https://iwwkn-jyaaa-aaaap-qnc6q-cai.icp0.io) and include sections for: (1) DNS configuration steps with CNAME record examples, (2) Internet Computer boundary node custom domain setup instructions, (3) Internet Identity authentication considerations including authorized origins configuration, (4) Testing and verification steps. Use the authorization component to restrict access to admin users only via AccessControl.hasPermission with #admin role. Include copy-to-clipboard functionality for technical values like the canister ID. Style consistently with existing admin pages using Tailwind and shadcn/ui components."
+        },
+        {
           "path": "frontend/src/App.tsx",
-          "operation": "create",
-          "description": "Create the main application shell and routing. Include protected route wrappers that require Internet Identity authentication for Winner Portal routes, and an admin-only guard for Admin Dashboard routes by checking backend isCallerAdmin()/getCallerUserRole() via react-query. Verify the component's usage instructions before implementing."
+          "operation": "modify",
+          "description": "Add a new protected route for /admin/custom-domain that renders the CustomDomainPage component. Place this route within the existing admin routes section alongside ClaimsListPage, ClaimDetailPage, TestimonialsAdminPage, and AdminDashboardPage. Ensure the route is protected by the same RequireAuth wrapper with requireAdmin prop set to true."
         },
         {
-          "path": "frontend/src/components/LoginButton.tsx",
-          "operation": "create",
-          "description": "Create a login/logout button composed from existing shadcn/ui primitives and the immutable useInternetIdentity hook; clear React Query cache on logout. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/ProfileSetupModal.tsx",
-          "operation": "create",
-          "description": "Create a first-login profile setup modal that calls getCallerUserProfile() and saveCallerUserProfile() and avoids flashing per the authorization component guidance. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/AccessDeniedScreen.tsx",
-          "operation": "create",
-          "description": "Create a simple access denied screen for unauthenticated or unauthorized users attempting to visit protected routes; handle backend authorization traps gracefully. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useAuthz.ts",
-          "operation": "create",
-          "description": "Add frontend hooks (React Query) for getCallerUserRole(), isCallerAdmin(), and getCallerUserProfile(); centralize auth/role loading states for route guards. Verify the component's usage instructions before implementing."
+          "path": "frontend/src/pages/admin/AdminDashboardPage.tsx",
+          "operation": "modify",
+          "description": "Add a navigation card or link to the new Custom Domain configuration page. Include an appropriate icon (e.g., Globe or Link icon from lucide-react) and descriptive text such as 'Custom Domain Setup' with a subtitle like 'Configure your vanity URL'. Place this alongside existing navigation options for Claims and Testimonials management."
         },
         {
           "path": "frontend/src/components/NavBar.tsx",
-          "operation": "create",
-          "description": "Create a top navigation that conditionally shows Winner Portal links for authenticated users and Admin Dashboard links only when isCallerAdmin() is true; ensure links are hidden for non-admins. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/index.css",
-          "operation": "create",
-          "description": "Create frontend/src/index.css to satisfy the existing import in frontend/src/main.tsx; forward to the existing Tailwind base file (frontend/index.css) and add minimal global layout defaults. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-2",
-      "summary": "Build Winner Portal ticket verification + winning entry activation flow with clear status feedback and anti-double-claim UX.",
-      "acceptanceCriteria": [
-        "Winner can enter a ticket identifier/code and a prize number (or activation code) and submit for verification.",
-        "Backend returns a deterministic status: valid + activated for this user, invalid, or already activated by someone else.",
-        "Once activated, the activation is bound to the signed-in principal and is not re-claimable by another principal."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/winner/VerifyActivatePage.tsx",
-          "operation": "create",
-          "description": "Create a Winner Portal page with a form for ticket identifier and prize number; call backend getEntryByNumber(prizeNumber) for pre-check and claimWinningEntry(entry.id) for activation. Display status banners for valid/activated, invalid (no entry found or mismatch), and already claimed (based on entry.isClaimed/claimedBy when returned, or handled trap). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useWinningEntry.ts",
-          "operation": "create",
-          "description": "Add React Query hooks to fetch getEntryByNumber() and to run claimWinningEntry() with optimistic UI states and friendly error mapping (e.g., already claimed). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
           "operation": "modify",
-          "description": "Wire VerifyActivatePage into Winner Portal routes and navigation (no orphan pages). Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-3",
-      "summary": "Implement the winner claim submission form with payout method selection and conditional fields, and show claim status after submit.",
-      "acceptanceCriteria": [
-        "Winner can select one of: ATM card, certified check, bank transfer.",
-        "Form dynamically shows required fields for the chosen method (e.g., bank transfer requires bank details; check requires mailing name/address).",
-        "Winner can save/submit the claim; backend stores it and returns a claim ID.",
-        "Winner can view the current claim status after submission (e.g., Draft/Submitted/Under Review/Approved/Rejected/Need More Info)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/winner/ClaimFormPage.tsx",
-          "operation": "create",
-          "description": "Create claim form UI that collects delivery/claim info and payout method (ATM card/certified check/bank transfer) with conditional required fields. On submit, build a WinnerClaim object (including payoutMethod shape) and call submitWinnerClaim(); display a claim summary and current status (pending/approved/awaitingInfo/rejected) after submission. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/winner/PayoutMethodFields.tsx",
-          "operation": "create",
-          "description": "Create a form subcomponent to render and validate conditional fields per payout method; keep all user-facing text in English. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useClaims.ts",
-          "operation": "create",
-          "description": "Add hooks/mutations for submitting a claim and (winner-side) reading back claim status using available backend capabilities; ensure errors are surfaced in consistent alert components. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire ClaimFormPage into Winner Portal routes and navigation. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-4",
-      "summary": "Add identity verification capture/upload (selfie + ID card), client-side validation/previews, and attach to claim with replace capability before finalization.",
-      "acceptanceCriteria": [
-        "Winner can capture/upload two images: selfie and ID card photo.",
-        "Client enforces basic validation (file type image/* and reasonable max size) and shows previews before upload.",
-        "Backend stores the uploaded images associated with the claim (or an upload record linked to the claim).",
-        "Winner can re-upload/replace images while the claim is not in a finalized state (e.g., before approval)."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/winner/IdentityVerificationPage.tsx",
-          "operation": "create",
-          "description": "Create identity verification UI for two images (selfie + ID). Support both upload-from-device and capture-from-camera for selfie. Enforce client-side validation (image/* MIME, max size) and show previews before upload; allow replacing images when claim status is not approved/rejected. Use the camera component hook (useCamera) for capture flows. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/winner/CameraCapture.tsx",
-          "operation": "create",
-          "description": "Compose a reusable camera capture component using the prefabricated camera/useCamera hook for selfie capture (with preview, capture button, and error states). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/winner/ImagePicker.tsx",
-          "operation": "create",
-          "description": "Create an image picker with preview, replace, and validation messaging for both selfie and ID card. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useIdentityUploads.ts",
-          "operation": "create",
-          "description": "Add upload helpers that convert selected/captured files to blob-storage ExternalBlob (ExternalBlob.fromBytes(...).withUploadProgress(...)) and call the backend capability for storing/replacing images and linking them to the active claim; use getDirectURL() for displaying stored images where available. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/admin/ClaimDetailPage.tsx",
-          "operation": "modify",
-          "description": "Update admin claim detail view (created in REQ-6) to display stored selfie/ID images using blob-storage ExternalBlob direct URLs when the claim has image references. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire IdentityVerificationPage into Winner Portal routes (reachable from claim flow). Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-5",
-      "summary": "Add winner-facing confirmation page with claim receipt details and an English-only “Is this real?” legitimacy/disclaimer section.",
-      "acceptanceCriteria": [
-        "After submitting a claim, the winner sees a confirmation screen with claim ID and current status.",
-        "An “Is this real?” section is accessible from the Winner Portal and contains English-only explanatory text and safety disclaimers.",
-        "The page does not imply endorsement by any real public figure or government entity."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/winner/ConfirmationLegitimacyPage.tsx",
-          "operation": "create",
-          "description": "Create a confirmation screen showing claim ID and current status after claim submission, plus a clearly separated “Is this real?” section with plain-English guidance and safety disclaimers. Ensure copy explicitly avoids implying endorsement by any real public figure or government entity, and avoids any political-figure imagery. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire ConfirmationLegitimacyPage into Winner Portal routes and ensure navigation from claim submission flow. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-6",
-      "summary": "Create an Admin Dashboard UI to list/filter claims, view claim details (including images), and update status with an admin response message.",
-      "acceptanceCriteria": [
-        "Admin can view a table/list of all claims with key fields (claim ID, user, status, created date).",
-        "Admin can open a claim detail view and see submitted data and uploaded images.",
-        "Admin can set claim status and add an admin message/response visible to the winner.",
-        "All admin actions are enforced by backend authorization checks."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/admin/AdminDashboardPage.tsx",
-          "operation": "create",
-          "description": "Create Admin Dashboard landing with tabs/sections for Claims and Testimonials management. Guard the entire admin area with the admin-only route wrapper (REQ-1). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/admin/ClaimsListPage.tsx",
-          "operation": "create",
-          "description": "Create claims list table using getAllClaims(statusFilter, pagination). Add status filtering UI and pagination controls. Show key fields (claim ID, claimant principal string or name if available, status, created/submission timestamp). Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/admin/ClaimDetailPage.tsx",
-          "operation": "create",
-          "description": "Create claim detail view to display payout method details and claim metadata; provide controls to updateClaimStatus() and send adminResponse() with an admin message visible to winners. Display authorization failures as AccessDenied-style messaging. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useAdminClaims.ts",
-          "operation": "create",
-          "description": "Add React Query hooks/mutations for admin claim operations: getAllClaims(), updateClaimStatus(), adminResponse(). Ensure cache invalidation refreshes list/detail after updates. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/winner/ClaimStatusPage.tsx",
-          "operation": "create",
-          "description": "Create a winner-facing status page to view their current claim status and any adminResponse text returned in claim details; present statuses with consistent badges/alerts. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire AdminDashboardPage, ClaimsListPage, ClaimDetailPage into admin-only routes and add navigation links that only render for admins. Wire ClaimStatusPage into Winner Portal routes. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-7",
-      "summary": "Add a Testimonials section in Winner Portal and admin tooling to add/edit/remove testimonials with required disclaimers and seed items.",
-      "acceptanceCriteria": [
-        "Winner Portal includes a Testimonials page/section listing testimonial items (name, country, message).",
-        "Initial seed testimonials include entries for “Ronnie Lee (USA)” and “Hans Cusveller (Canada)” as editable content.",
-        "Admin can add/edit/delete testimonial entries from the Admin Dashboard.",
-        "UI includes a disclaimer indicating testimonials are user-submitted/marketing content and may not be independently verified."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/src/pages/winner/TestimonialsPage.tsx",
-          "operation": "create",
-          "description": "Create Winner Portal testimonials page that reads getTestimonials() and displays items (name/country/message) plus an English disclaimer stating testimonials are marketing content and may not be independently verified. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/admin/TestimonialsAdminPage.tsx",
-          "operation": "create",
-          "description": "Create Admin Dashboard section to add/edit/remove testimonials. Use addTestimonial() and removeTestimonial(); for edit, implement as remove+add or update via the available backend capability pattern. Ensure access is admin-only. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/hooks/useTestimonials.ts",
-          "operation": "create",
-          "description": "Add React Query hooks/mutations for getTestimonials(), addTestimonial(), removeTestimonial(); invalidate queries on changes. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire TestimonialsPage into Winner Portal navigation and TestimonialsAdminPage into Admin Dashboard navigation. Verify the component's usage instructions before implementing."
-        }
-      ]
-    },
-    {
-      "id": "REQ-8",
-      "summary": "Apply a consistent, accessible visual theme across Winner Portal and Admin Dashboard (palette, typography, spacing, UI states).",
-      "acceptanceCriteria": [
-        "App uses a consistent palette, typography scale, and spacing system across pages.",
-        "Forms, buttons, tables, and alerts use consistent variants and states (hover/disabled/error).",
-        "Color contrast meets basic accessibility expectations for primary text on backgrounds."
-      ],
-      "file_operations": [
-        {
-          "path": "frontend/index.css",
-          "operation": "modify",
-          "description": "Adjust Tailwind CSS variables (color tokens, radius, base typography defaults) to establish a coherent prize-claim portal theme with adequate contrast. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/AppLayout.tsx",
-          "operation": "create",
-          "description": "Create a shared layout component (header with banner, nav, content container, footer disclaimers) used by both Winner Portal and Admin Dashboard for consistent spacing/typography. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wrap routed pages with AppLayout and standardize usage of shadcn/ui components for forms/buttons/alerts/tables to keep variants consistent across the app. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/components/ui/README_THEME.md",
-          "operation": "create",
-          "description": "Document (briefly) the theme tokens and the intended usage of existing shadcn/ui component variants across forms/tables/alerts to keep UI consistent; do not modify frontend/src/components/ui components themselves. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/pages/winner/WinnerPortalHomePage.tsx",
-          "operation": "create",
-          "description": "Create a Winner Portal landing section that uses the generated assets (banner + seal) and links into required flows (Verify/Activate, Claim Form, Upload ID, Status, Testimonials, Is this real?). Reference and render the static assets at frontend/public/assets/generated/lottery-banner.dim_1600x600.png and frontend/public/assets/generated/claim-seal.dim_512x512.png. Verify the component's usage instructions before implementing."
-        },
-        {
-          "path": "frontend/src/App.tsx",
-          "operation": "modify",
-          "description": "Wire WinnerPortalHomePage as the default authenticated landing route for standard users and ensure the generated images are displayed within existing required pages (no extra top-level routes beyond requirements). Verify the component's usage instructions before implementing."
+          "description": "Add a navigation link to the Custom Domain page in both the desktop and mobile admin menu sections. Label it 'Custom Domain' and link to /admin/custom-domain. Ensure it only appears when the user is authenticated and has admin privileges, following the same pattern as existing admin-only navigation items."
         }
       ]
     }

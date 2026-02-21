@@ -1,7 +1,8 @@
 import { useNavigate } from '@tanstack/react-router';
 import { Button } from '../../components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../../components/ui/card';
-import { CheckCircle, Upload, FileText, MessageSquare, Award, Shield } from 'lucide-react';
+import { CheckCircle, Upload, FileText, MessageSquare, Award, Shield, Sparkles } from 'lucide-react';
+import MetaBrandBadge from '../../components/MetaBrandBadge';
 
 export default function WinnerPortalHomePage() {
   const navigate = useNavigate();
@@ -11,21 +12,45 @@ export default function WinnerPortalHomePage() {
       {/* Hero Banner */}
       <div className="relative rounded-xl overflow-hidden shadow-lg">
         <img
-          src="/assets/generated/lottery-banner.dim_1600x600.png"
-          alt="Prize Claim Portal Banner"
+          src="/assets/generated/meta-lottery-banner.dim_1600x600.png"
+          alt="Meta Lottery Portal Banner"
           className="w-full h-48 md:h-64 object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-black/30 flex items-center">
           <div className="container mx-auto px-6">
-            <h1 className="text-3xl md:text-5xl font-bold text-white mb-2">Welcome to Prize Claim Portal</h1>
-            <p className="text-lg md:text-xl text-white/90">Verify your winning ticket and claim your prize securely</p>
+            <div className="flex items-center gap-3 mb-3">
+              <h1 className="text-3xl md:text-5xl font-bold text-white">Welcome to Meta Lottery Portal</h1>
+            </div>
+            <p className="text-lg md:text-xl text-white/90 mb-4">Verify your winning ticket and claim your prize securely</p>
+            <MetaBrandBadge />
+          </div>
+        </div>
+      </div>
+
+      {/* Meta Feature Card */}
+      <div className="relative overflow-hidden rounded-lg border bg-card p-6 shadow-lg">
+        <div className="absolute top-0 right-0 w-64 h-64 meta-gradient opacity-10 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2"></div>
+        <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
+          <div className="flex-shrink-0">
+            <div className="w-16 h-16 rounded-full meta-gradient flex items-center justify-center meta-pulse">
+              <Sparkles className="h-8 w-8 text-white" />
+            </div>
+          </div>
+          <div className="flex-1 text-center md:text-left">
+            <h3 className="text-xl font-bold mb-2 flex items-center justify-center md:justify-start gap-2">
+              <span>Enhanced Meta Experience</span>
+            </h3>
+            <p className="text-muted-foreground">
+              Experience our next-generation lottery portal with advanced verification, real-time status tracking, and seamless prize claiming. 
+              Your journey to claiming your prize has never been more secure and transparent.
+            </p>
           </div>
         </div>
       </div>
 
       {/* Seal and Quick Info */}
       <div className="flex flex-col md:flex-row items-center gap-6 bg-card rounded-lg p-6 border">
-        <img src="/assets/generated/claim-seal.dim_512x512.png" alt="Prize Claim Seal" className="w-24 h-24 md:w-32 md:h-32" />
+        <img src="/assets/generated/meta-claim-seal.dim_512x512.png" alt="Meta Lottery Portal Seal" className="w-24 h-24 md:w-32 md:h-32" />
         <div className="flex-1 text-center md:text-left">
           <h2 className="text-2xl font-bold mb-2">Official Prize Claim Process</h2>
           <p className="text-muted-foreground">

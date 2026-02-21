@@ -1,13 +1,12 @@
 {
   "schemaVersion": "1.0.0",
-  "projectStateVersion": 3,
-  "summary": "Prize-claim portal app for contest/lottery winners to verify winning tickets, activate prize numbers, submit identity verification (selfie + ID), choose payout method (ATM card, certified check, bank transfer), provide delivery details, view motivational past-winner testimonials, and an admin dashboard to manage and respond to winner claims.",
+  "projectStateVersion": 9,
+  "summary": "Update branding direction: shift the app’s visual theme from blue/green to a Facebook-style blue theme, and incorporate subtle Meta/Facebook logo motifs (light/low-opacity) in the app background while keeping existing portal/admin functionality unchanged.",
   "architectural_notes": [],
   "known_issues": [
     "Request includes adding images of a political figure as promotional proof; may be restricted/disallowed content and could be misleading."
   ],
   "isFixRequest": false,
-  "imageRequirements": "## Required Images\n- Generic lottery promotion banner with abstract celebratory elements (lottery-banner.dim_1600x600.png)\n- Badge-style seal illustration reading “Prize Claim Portal” (claim-seal.dim_512x512.png)",
   "existing_features": [
     {
       "id": "feature-implement-internet-identity-sign-in-and-role-gated-navigation-with-two-main-areas-1-winner-portal-for-standard-authenticated-users-and-2-admin-dashboard-accessible-only-to-configured-admin-principals",
@@ -70,6 +69,70 @@
       "title": "Apply a coherent visual theme across the app (colors, typography, layout) suitable for a prize-claim portal, ensuring accessibility and consistent styling across Winner Portal and Admin Dashboard.",
       "reqIds": [
         "REQ-8"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-global-visual-theme-to-use-blue-and-green-as-the-primary-brand-colors-across-the-app-light-dark-mode-by-adjusting-the-tailwind-css-oklch-theme-tokens-and-ensuring-accessible-contrast-for-text-buttons-borders-alerts-and-focus-rings",
+      "title": "Update the global visual theme to use blue and green as the primary brand colors across the app (light + dark mode), by adjusting the Tailwind CSS OKLCH theme tokens and ensuring accessible contrast for text, buttons, borders, alerts, and focus rings.",
+      "reqIds": [
+        "REQ-10"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-rebrand-all-user-facing-copy-from-prize-claim-portal-to-meta-lottery-portal-including-navigation-title-footer-hero-banner-text-and-other-headings-descriptions-where-the-old-name-appears-while-keeping-all-existing-functional-flows-unchanged",
+      "title": "Rebrand all user-facing copy from “Prize Claim Portal” to “Meta Lottery Portal” (including navigation title, footer, hero banner text, and other headings/descriptions where the old name appears), while keeping all existing functional flows unchanged.",
+      "reqIds": [
+        "REQ-11"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-small-set-of-meta-themed-ui-enhancements-visual-and-ux-micro-interactions-only-that-reinforce-the-meta-lottery-portal-branding-without-introducing-new-backend-data-models-or-workflows",
+      "title": "Add a small set of “meta” themed UI enhancements (visual and UX micro-interactions only) that reinforce the “Meta Lottery Portal” branding without introducing new backend data models or workflows.",
+      "reqIds": [
+        "REQ-12"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-existing-generated-static-images-to-match-the-blue-green-meta-lottery-portal-branding-and-ensure-the-ui-uses-the-updated-images-from-frontend-public-assets-generated-no-backend-image-routing",
+      "title": "Update the existing generated static images to match the blue/green “Meta Lottery Portal” branding and ensure the UI uses the updated images from frontend/public/assets/generated (no backend image routing).",
+      "reqIds": [
+        "REQ-13"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-global-tailwind-oklch-theme-tokens-to-a-facebook-style-blue-brand-theme-replacing-the-current-blue-green-palette-across-light-and-dark-mode-ensuring-accessible-contrast-for-text-buttons-borders-alerts-and-focus-rings",
+      "title": "Update the global Tailwind OKLCH theme tokens to a Facebook-style blue brand theme (replacing the current blue/green palette) across light and dark mode, ensuring accessible contrast for text, buttons, borders, alerts, and focus rings.",
+      "reqIds": [
+        "REQ-14"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-subtle-low-opacity-background-motif-using-facebook-meta-style-logo-marks-light-watermark-effect-across-the-app-background-without-reducing-content-readability-and-apply-it-consistently-to-the-main-app-layout",
+      "title": "Add a subtle, low-opacity background motif using Facebook/Meta-style logo marks (light watermark effect) across the app background without reducing content readability, and apply it consistently to the main app layout.",
+      "reqIds": [
+        "REQ-15"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-update-the-app-to-reference-any-newly-generated-logo-background-assets-static-files-only-and-ensure-the-ui-renders-them-without-routing-images-through-the-backend",
+      "title": "Update the app to reference any newly generated logo/background assets (static files only) and ensure the UI renders them without routing images through the backend.",
+      "reqIds": [
+        "REQ-16"
+      ],
+      "version": 1
+    },
+    {
+      "id": "feature-add-a-configuration-interface-or-documentation-to-enable-custom-domain-mapping-for-the-deployed-canister-url-https-iwwkn-jyaaa-aaaap-qnc6q-cai-icp0-io-allowing-the-user-to-configure-a-vanity-url-or-custom-domain-for-the-meta-lottery-portal",
+      "title": "Add a configuration interface or documentation to enable custom domain mapping for the deployed canister URL (https://iwwkn-jyaaa-aaaap-qnc6q-cai.icp0.io), allowing the user to configure a vanity URL or custom domain for the Meta Lottery Portal.",
+      "reqIds": [
+        "REQ-17"
       ],
       "version": 1
     }
@@ -136,10 +199,40 @@
         "REQ-9"
       ],
       "status": "pending"
+    },
+    {
+      "id": "AR-19",
+      "summary": "Rebrand app as “Meta Lottery Portal” (copy/branding updates across UI)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-20",
+      "summary": "Update visual theme to blue and green as primary brand colors",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-21",
+      "summary": "Add small “meta features” (meta-themed UI touches/mini enhancements)",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-22",
+      "summary": "Change app theme from green/blue to a Facebook-style blue theme and add subtle/light Meta (Facebook) logo motifs in the app background",
+      "reqIds": [],
+      "status": "pending"
+    },
+    {
+      "id": "AR-23",
+      "summary": "Customize the app's live URL (custom domain setup or vanity canister URL)",
+      "reqIds": [],
+      "status": "pending"
     }
   ],
   "gameProjectType": "none",
-  "projectName": "Prize-winner claim portal with identity verification and admin management dashboard",
+  "projectName": "Meta Lottery Portal",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

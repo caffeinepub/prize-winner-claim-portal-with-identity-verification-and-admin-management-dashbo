@@ -15,6 +15,7 @@ import AdminDashboardPage from './pages/admin/AdminDashboardPage';
 import ClaimsListPage from './pages/admin/ClaimsListPage';
 import ClaimDetailPage from './pages/admin/ClaimDetailPage';
 import TestimonialsAdminPage from './pages/admin/TestimonialsAdminPage';
+import CustomDomainPage from './pages/admin/CustomDomainPage';
 import { useEffect } from 'react';
 
 function Layout() {
@@ -165,6 +166,16 @@ const adminTestimonialsRoute = createRoute({
   ),
 });
 
+const adminCustomDomainRoute = createRoute({
+  getParentRoute: () => rootRoute,
+  path: '/admin/custom-domain',
+  component: () => (
+    <ProtectedRoute adminOnly>
+      <CustomDomainPage />
+    </ProtectedRoute>
+  ),
+});
+
 const routeTree = rootRoute.addChildren([
   indexRoute,
   verifyRoute,
@@ -177,6 +188,7 @@ const routeTree = rootRoute.addChildren([
   adminClaimsRoute,
   adminClaimDetailRoute,
   adminTestimonialsRoute,
+  adminCustomDomainRoute,
 ]);
 
 const router = createRouter({ routeTree });

@@ -3,7 +3,7 @@ import { useInternetIdentity } from '../hooks/useInternetIdentity';
 import { useIsCallerAdmin } from '../hooks/useAuthz';
 import LoginButton from './LoginButton';
 import { Button } from './ui/button';
-import { Menu, X, Award, Shield } from 'lucide-react';
+import { Menu, X, Award, Shield, Globe } from 'lucide-react';
 import { useState } from 'react';
 
 export default function NavBar() {
@@ -18,10 +18,10 @@ export default function NavBar() {
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container mx-auto px-4">
         <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center gap-2">
-            <Award className="h-6 w-6 text-primary" />
+          <div className="flex items-center gap-3">
+            <img src="/assets/generated/meta-logo-light.dim_512x512.png" alt="Meta Lottery Portal" className="h-8 w-8" />
             <button onClick={() => navigate({ to: '/' })} className="text-xl font-bold text-foreground hover:text-primary transition-colors">
-              Prize Claim Portal
+              Meta Lottery Portal
             </button>
           </div>
 
@@ -42,10 +42,16 @@ export default function NavBar() {
                   Testimonials
                 </Button>
                 {isAdmin && (
-                  <Button variant="outline" onClick={() => navigate({ to: '/admin' })} className="gap-2">
-                    <Shield className="h-4 w-4" />
-                    Admin
-                  </Button>
+                  <>
+                    <Button variant="outline" onClick={() => navigate({ to: '/admin' })} className="gap-2">
+                      <Shield className="h-4 w-4" />
+                      Admin
+                    </Button>
+                    <Button variant="ghost" onClick={() => navigate({ to: '/admin/custom-domain' })} className="gap-2">
+                      <Globe className="h-4 w-4" />
+                      Custom Domain
+                    </Button>
+                  </>
                 )}
               </>
             )}
@@ -107,17 +113,30 @@ export default function NavBar() {
               Testimonials
             </Button>
             {isAdmin && (
-              <Button
-                variant="outline"
-                className="w-full justify-start gap-2"
-                onClick={() => {
-                  navigate({ to: '/admin' });
-                  setMobileMenuOpen(false);
-                }}
-              >
-                <Shield className="h-4 w-4" />
-                Admin Dashboard
-              </Button>
+              <>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start gap-2"
+                  onClick={() => {
+                    navigate({ to: '/admin' });
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  <Shield className="h-4 w-4" />
+                  Admin Dashboard
+                </Button>
+                <Button
+                  variant="ghost"
+                  className="w-full justify-start gap-2"
+                  onClick={() => {
+                    navigate({ to: '/admin/custom-domain' });
+                    setMobileMenuOpen(false);
+                  }}
+                >
+                  <Globe className="h-4 w-4" />
+                  Custom Domain
+                </Button>
+              </>
             )}
           </nav>
         )}

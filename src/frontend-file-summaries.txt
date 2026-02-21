@@ -1,7 +1,7 @@
 {
-  "frontend/src/App.tsx": "Main application component with TanStack Router setup, protected routes for winner portal and admin dashboard, and profile setup modal integration.",
-  "frontend/src/components/AppLayout.tsx": "Shared layout wrapper with navigation bar, main content area, and footer with attribution.",
-  "frontend/src/components/NavBar.tsx": "Responsive navigation header with conditional links for authenticated users and admin-only sections.",
+  "frontend/src/App.tsx": "Main application component with TanStack Router setup, protected routes for winner portal and admin dashboard including the new custom domain configuration route, and profile setup modal integration.",
+  "frontend/src/components/AppLayout.tsx": "Shared layout wrapper with fixed background pattern layer, navigation bar, main content area with proper z-index stacking, and semi-transparent footer with Meta Lottery Portal attribution and caffeine.ai link.",
+  "frontend/src/components/NavBar.tsx": "Responsive navigation header with Meta Lottery Portal branding, conditional links for authenticated users, admin sections including the new custom domain link, and mobile menu support.",
   "frontend/src/components/LoginButton.tsx": "Internet Identity login/logout button with loading states and query cache clearing.",
   "frontend/src/components/ProfileSetupModal.tsx": "First-login modal for collecting user profile information (name, email, phone).",
   "frontend/src/components/AccessDeniedScreen.tsx": "Error screen displayed when users lack required permissions.",
@@ -10,7 +10,7 @@
   "frontend/src/hooks/useClaims.ts": "React Query hooks for submitting and fetching winner claims.",
   "frontend/src/hooks/useAdminClaims.ts": "React Query mutations for admin claim status updates and responses.",
   "frontend/src/hooks/useTestimonials.ts": "React Query hooks for managing testimonials (get, add, remove).",
-  "frontend/src/pages/winner/WinnerPortalHomePage.tsx": "Winner portal landing page with hero banner, seal, and action cards linking to all winner flows.",
+  "frontend/src/pages/winner/WinnerPortalHomePage.tsx": "Winner portal landing page with Meta Lottery Portal hero banner, meta feature card with pulse animation, seal, brand badge, and action cards linking to all winner flows.",
   "frontend/src/pages/winner/VerifyActivatePage.tsx": "Prize verification and activation page with ticket/prize number validation.",
   "frontend/src/pages/winner/ClaimFormPage.tsx": "Prize claim submission form with payout method selection and conditional fields.",
   "frontend/src/components/winner/PayoutMethodFields.tsx": "Dynamic form fields component for ATM card, certified check, and bank transfer payout methods.",
@@ -20,11 +20,14 @@
   "frontend/src/pages/winner/ClaimStatusPage.tsx": "Winner-facing page to view their claim status and admin responses.",
   "frontend/src/pages/winner/ConfirmationLegitimacyPage.tsx": "Confirmation page with claim receipt and \"Is this real?\" safety disclaimers.",
   "frontend/src/pages/winner/TestimonialsPage.tsx": "Public testimonials page displaying winner stories with disclaimer.",
-  "frontend/src/pages/admin/AdminDashboardPage.tsx": "Admin dashboard landing with links to claims and testimonials management.",
+  "frontend/src/pages/admin/AdminDashboardPage.tsx": "Admin dashboard landing page with navigation cards linking to claims management, testimonials management, and the new custom domain setup page.",
   "frontend/src/pages/admin/ClaimsListPage.tsx": "Admin claims list with filtering, pagination, and navigation to detail view.",
   "frontend/src/pages/admin/ClaimDetailPage.tsx": "Admin claim detail page with status updates and response messaging.",
   "frontend/src/pages/admin/TestimonialsAdminPage.tsx": "Admin interface for adding and removing testimonials.",
   "frontend/src/index.css": "CSS import forwarding to main Tailwind file.",
-  "frontend/index.css": "Updated OKLCH color system with blue-violet primary theme for prize claim portal aesthetic.",
-  "frontend/src/components/ui/README_THEME.md": "Documentation of design system tokens, component variants, and usage guidelines."
+  "frontend/index.css": "Global CSS with OKLCH color system updated to Facebook blue theme (hue 210-225) with meta-bg-pattern utility for subtle background watermark rendering with proper light/dark mode overlay blending.",
+  "frontend/src/components/ui/README_THEME.md": "Documentation of design system tokens, component variants, and usage guidelines.",
+  "frontend/tailwind.config.js": "Tailwind configuration with extended theme mappings for OKLCH tokens, added meta-specific shadow and animation utilities for brand micro-interactions.",
+  "frontend/src/components/MetaBrandBadge.tsx": "Reusable Meta brand badge component with gradient background, sparkle icon, and hover glow effect for meta-themed UI enhancement.",
+  "frontend/src/pages/admin/CustomDomainPage.tsx": "Admin page providing comprehensive step-by-step documentation and guidance for configuring a custom domain or vanity URL for the Meta Lottery Portal, including DNS setup, Internet Computer boundary node configuration, Internet Identity considerations, and testing instructions with copy-to-clipboard functionality for technical values."
 }
